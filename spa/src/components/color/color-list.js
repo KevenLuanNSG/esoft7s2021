@@ -1,38 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
-const CorList = () => {
-        const [cores, setCores] = useState([]);
+const ColorList = () => {
+        const [colors, setColors] = useState([]);
 
-        const doGetCores = async () => {
-            const response = await axios.get("/api/cores")
-            setCores(response.data)
+        const doGetColors = async () => {
+            const response = await axios.get("/api/colors")
+            setColors(response.data)
         }
 
         useEffect(() => {
-            doGetCores();
+            doGetColors();
         },[])
 
 
-        const doExcluirCor = async (id) => {
-            await axios.delete(`/api/cores/${id}`)
-            doGetCores()
+        const deleteColor = async (id) => {
+            await axios.delete(`/api/colors/${id}`)
+            doGetColors()
         }
 
-        const handleExcluir = (id) => {
+        const handleDelete = (id) => {
             if(window.confirm("Deseja excluir?")) {
-                doExcluirCor(id)
+                deleteColor(id)
             }
         }
 
-        const tableData = cores.map(row => {
+        const tableData = colors.map(row => {
             return <tr key={row.id}>
                 <td>{row.id}</td>
-                <td>{row.sigla}</td>
-                <td>{row.nome}</td>
+                <td>{row.nick}</td>
+                <td>{row.name}</td>
                 <td>
-                    <button onClick={(id) => handleExcluir(row.id)}>Excluir</button>
-                    <button>Editar</button>    
+                    <button onClick={(id) => handleDelete(row.id)}>Excluir</button>
+                    <Link to={`/colors/edit/${row.id}`}>
+                        <button>Editar</button>
+                    </Link>  
                 </td>
             </tr>
         })
@@ -41,6 +44,9 @@ const CorList = () => {
             <div><center>
                 <h2>Listagem de Cores</h2>
                 <hr></hr>
+                <Link to="/colors/new">
+                    <button>Nova Cor</button>
+                </Link>
                 <table border="1">
                     <thead>
                         <tr>
@@ -58,4 +64,4 @@ const CorList = () => {
         )
 }
 
-export default CorList
+export default ColorList
