@@ -4,8 +4,11 @@ import './App.css';
 // import ContadorComponent from './components/contador-component';
 // import ContadorBasico from './components/contador-basico';
 // import AirConditioner from './components/air-conditioner';
-import CorEdit from './components/cor/cor-edit';
-import CorList from './components/cor/cor-list';
+import ColorEdit from './components/color/color-edit'
+import ColorList from './components/color/color-list'
+import LandingPage from './components/landing/landing-page'
+import ReactDOM from 'react-dom'
+import {Switch, BrowserRouter as Router, Route} from 'react-router-dom'
 /*
 function somar(v1, v2) {
   return v1 + v2;
@@ -30,8 +33,23 @@ function App() {
 
   return (
     <div>
-      <CorEdit></CorEdit>
-      <CorList></CorList>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <LandingPage></LandingPage>
+          </Route>
+          <Route exact path="/colors">
+            <ColorList></ColorList>
+          </Route>
+          <Route path="/colors/edit/:id">
+            <ColorEdit></ColorEdit>
+          </Route>
+          <Route path="/colors/new">
+            <ColorEdit></ColorEdit>
+          </Route>
+        </Switch>
+      </Router>
+
       {/* <AirConditioner></AirConditioner> */}
       {/* <ContadorBasico></ContadorBasico> */}
       {/* <div>{resultado}</div> */}
