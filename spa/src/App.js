@@ -6,8 +6,9 @@ import './App.css';
 // import AirConditioner from './components/air-conditioner';
 import ColorEdit from './components/color/color-edit'
 import ColorList from './components/color/color-list'
+import BookEdit from './components/book/book-edit'
+import BookList from './components/book/book-list'
 import LandingPage from './components/landing/landing-page'
-import ReactDOM from 'react-dom'
 import {Switch, BrowserRouter as Router, Route} from 'react-router-dom'
 /*
 function somar(v1, v2) {
@@ -46,6 +47,15 @@ function App() {
           </Route>
           <Route path="/colors/new">
             <ColorEdit></ColorEdit>
+          </Route>
+          <Route exact path="/books">
+            <BookList></BookList>
+          </Route>
+          <Route path="/books/edit/:id">
+            <BookEdit></BookEdit>
+          </Route>
+          <Route path="/books/new">
+            <BookEdit></BookEdit>
           </Route>
         </Switch>
       </Router>

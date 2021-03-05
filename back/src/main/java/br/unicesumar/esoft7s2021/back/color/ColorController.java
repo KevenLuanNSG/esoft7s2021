@@ -51,9 +51,4 @@ public class ColorController {
         return editedColor.getId();
     }
 
-
-
-
-
-
 }
