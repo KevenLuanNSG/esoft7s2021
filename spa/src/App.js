@@ -10,6 +10,8 @@ import BookEdit from './components/book/book-edit'
 import BookList from './components/book/book-list'
 import LandingPage from './components/landing/landing-page'
 import {Switch, BrowserRouter as Router, Route} from 'react-router-dom'
+import ProductList from './components/product/product-list';
+import ProductEdit from './components/product/product-edit';
 /*
 function somar(v1, v2) {
   return v1 + v2;
@@ -56,6 +58,15 @@ function App() {
           </Route>
           <Route path="/books/new">
             <BookEdit></BookEdit>
+          </Route>
+          <Route exact path="/products">
+            <ProductList></ProductList>
+          </Route>
+          <Route path="/products/edit/:id">
+            <ProductEdit></ProductEdit>
+          </Route>
+          <Route path="/products/new">
+            <ProductEdit></ProductEdit>
           </Route>
         </Switch>
       </Router>
