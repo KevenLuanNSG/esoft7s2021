@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const BookEdit = () => {
     const history = useHistory()
@@ -61,9 +62,12 @@ const BookEdit = () => {
                 </div>
                 <button>Salvar</button>
             </form>
+            <Link to="/books">
+                <a>Voltar</a>
+            </Link>
         </center></div>
     )
 }
 
-export default BookEdit;
+export default BookEdit
 

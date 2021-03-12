@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 
 function ContadorBásico() {
-    const [valor, setValor] = useState(0);
+    const [valor, setValor] = useState(0)
 
     const handleClick = () => {
-        setValor(valor+1);        
+        setValor(valor+1)    
     }
 
     useEffect(() => {
-        console.log(valor);
+        console.log(valor)
     })
 
     return (
@@ -17,8 +17,8 @@ function ContadorBásico() {
             Contador Básico. Valor atual: {valor}
             <button onClick={handleClick}>+</button>
         </div>
-    );
+    )
 }
 
-export default ContadorBásico;
+export default ContadorBásico
 

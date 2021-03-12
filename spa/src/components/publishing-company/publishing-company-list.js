@@ -3,38 +3,39 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Menu from '../menu/menu'
 
-const ColorList = () => {
-        const [colors, setColors] = useState([])
+const PublishingCompanyList = () => {
+        const [publishingCompanies, setPublishingCompanies] = useState([])
 
-        const doGetColors = async () => {
-            const response = await axios.get("/api/colors")
-            setColors(response.data)
+        const doGetPublishingCompanies = async () => {
+            const response = await axios.get("/api/publishing-companies")
+            setPublishingCompanies(response.data)
         }
 
         useEffect(() => {
-            doGetColors()
+            doGetPublishingCompanies();
         },[])
 
 
-        const deleteColor = async (id) => {
-            await axios.delete(`/api/colors/${id}`)
-            doGetColors()
+        const deletePublishingCompany = async (id) => {
+            await axios.delete(`/api/publishing-companies/${id}`)
+            doGetPublishingCompanies()
         }
 
         const handleDelete = (id) => {
             if(window.confirm("Deseja excluir?")) {
-                deleteColor(id)
+                deletePublishingCompany(id)
             }
         }
 
-        const tableData = colors.map(row => {
+        const tableData = publishingCompanies.map(row => {
             return <tr key={row.id}>
                 <td>{row.id}</td>
-                <td>{row.nick}</td>
                 <td>{row.name}</td>
+                <td>{row.fundation}</td>
+                <td>{row.averageBilling}</td>
                 <td>
                     <button onClick={(id) => handleDelete(row.id)}>Excluir</button>
-                    <Link to={`/colors/edit/${row.id}`}>
+                    <Link to={`/publishing-companies/edit/${row.id}`}>
                         <button>Editar</button>
                     </Link>  
                 </td>
@@ -43,17 +44,18 @@ const ColorList = () => {
 
         return (
             <div><Menu></Menu><center>
-                <h2>Listagem de Cores</h2>
+                <h2>Listagem de Editoras</h2>
                 <hr></hr>
-                <Link to="/colors/new">
-                    <button>Nova Cor</button>
+                <Link to="/publishing-companies/new">
+                    <button>Nova Editora</button>
                 </Link>
                 <table border="1">
                     <thead>
                         <tr>
                             <td>Id</td>
-                            <td>Sigla</td>
                             <td>Nome</td>
+                            <td>Fundação</td>
+                            <td>Faturamento</td>
                             <td>Ações</td>
                         </tr>
                     </thead>
@@ -65,4 +67,4 @@ const ColorList = () => {
         )
 }
 
-export default ColorList
+export default PublishingCompanyList

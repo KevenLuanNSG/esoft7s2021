@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ColorEdit = () => {
     const history = useHistory()
@@ -47,7 +48,7 @@ const ColorEdit = () => {
 
     return (
         <div><center>
-            <h2>Edição de Cor{editionMode ? '(editando)' : '(incluindo)'}</h2>
+            <h2>{editionMode ? 'Edição ' : 'Criação '}de Cor</h2>
             <hr></hr>
             <form onSubmit={handleSubmit}>
                 <div>Sigla:
@@ -58,9 +59,12 @@ const ColorEdit = () => {
                 </div>
                 <button>Enviar</button>
             </form>
+            <Link to="/colors">
+                    <a>Voltar</a>
+            </Link>
         </center></div>
     )
 }
 
-export default ColorEdit;
+export default ColorEdit
 

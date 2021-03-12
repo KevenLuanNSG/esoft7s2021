@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 const ProductEdit = () => {
     const history = useHistory()
@@ -27,7 +29,7 @@ const ProductEdit = () => {
 
     const updateProduct = async () => {
         const response = await axios.put(`/api/products/${id}`, product)
-        alert('Produto editado! Id=' + response.data)
+        alert('Produto editado! Id=' + response.data.id)
         history.push('/products')
     }
 
@@ -61,9 +63,12 @@ const ProductEdit = () => {
                 </div>
                 <button>Salvar</button>
             </form>
+            <Link to="/products">
+                <a>Voltar</a>
+            </Link>
         </center></div>
     )
 }
 
-export default ProductEdit;
+export default ProductEdit
 
