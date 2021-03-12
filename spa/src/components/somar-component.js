@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const SomarComponent = (props) => {
     const v1 = props.v1;

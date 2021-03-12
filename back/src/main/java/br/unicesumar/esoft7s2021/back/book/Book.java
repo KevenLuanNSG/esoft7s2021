@@ -1,4 +1,4 @@
-package br.unicesumar.esoft7s2021.back.keven.book;
+package br.unicesumar.esoft7s2021.back.book;
 
 import lombok.Data;
 

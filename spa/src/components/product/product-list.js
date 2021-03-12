@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import Menu from '../menu/menu'
 
 const ProductList = () => {
-        const [products, setProducts] = useState([]);
+        const [products, setProducts] = useState([])
 
         const doGetProducts = async () => {
             const response = await axios.get("/api/products")
@@ -11,7 +12,7 @@ const ProductList = () => {
         }
 
         useEffect(() => {
-            doGetProducts();
+            doGetProducts()
         },[])
 
 
@@ -42,7 +43,7 @@ const ProductList = () => {
         })
 
         return (
-            <div><center>
+            <div><Menu></Menu><center>
                 <h2>Listagem de Produtos</h2>
                 <hr></hr>
                 <Link to="/products/new">

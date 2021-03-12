@@ -1,33 +1,35 @@
-import './App.css';
-// import SomarComponent from './components/somar-component';
-// import HelloComponent from './components/hello-component';
-// import ContadorComponent from './components/contador-component';
-// import ContadorBasico from './components/contador-basico';
-// import AirConditioner from './components/air-conditioner';
+import './App.css'
+// import SomarComponent from './components/somar-component'
+// import HelloComponent from './components/hello-component'
+// import ContadorComponent from './components/contador-component'
+// import ContadorBasico from './components/contador-basico'
+// import AirConditioner from './components/air-conditioner'
 import ColorEdit from './components/color/color-edit'
 import ColorList from './components/color/color-list'
 import BookEdit from './components/book/book-edit'
 import BookList from './components/book/book-list'
 import LandingPage from './components/landing/landing-page'
 import {Switch, BrowserRouter as Router, Route} from 'react-router-dom'
-import ProductList from './components/product/product-list';
-import ProductEdit from './components/product/product-edit';
+import ProductList from './components/product/product-list'
+import ProductEdit from './components/product/product-edit'
+import PublishingCompanyList from './components/publishing-company/publishing-company-list'
+import PublishingCompanyEdit from './components/publishing-company/publishing-company-edit'
 /*
 function somar(v1, v2) {
-  return v1 + v2;
+  return v1 + v2
 }
 */
 
 /*
 const somar = function (v1, v2) {
-  return v1 + v2;
+  return v1 + v2
 }
 */
 
-//const somar = (v1, v2) => v1 + v2;
+//const somar = (v1, v2) => v1 + v2
 
 // const somar = (v1, v2) => {
-//   return v1 + v2;
+//   return v1 + v2
 // }
 
 
@@ -68,6 +70,15 @@ function App() {
           <Route path="/products/new">
             <ProductEdit></ProductEdit>
           </Route>
+          <Route exact path="/publishing-companies">
+            <PublishingCompanyList></PublishingCompanyList>
+          </Route>
+          <Route path="/publishing-companies/edit/:id">
+            <PublishingCompanyEdit></PublishingCompanyEdit>
+          </Route>
+          <Route path="/publishing-companies/new">
+            <PublishingCompanyEdit></PublishingCompanyEdit>
+          </Route>
         </Switch>
       </Router>
 
@@ -79,7 +90,7 @@ function App() {
       {/* <ContadorComponent valorMinimo={10} valorMaximo={15}></ContadorComponent>
       <ContadorComponent valorMinimo={0} valorMaximo={10}></ContadorComponent> */}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
