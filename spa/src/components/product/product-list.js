@@ -5,9 +5,15 @@ import Menu from '../menu/menu'
 
 const ProductList = () => {
         const [products, setProducts] = useState([])
+        const [search, setSearch] = useState([])
 
         const doGetProducts = async () => {
             const response = await axios.get("/api/products")
+            setProducts(response.data)
+        }
+
+        const doSearch = async () => {
+            const response = await axios.get(`/api/products?search=${search}`)
             setProducts(response.data)
         }
 
@@ -25,6 +31,11 @@ const ProductList = () => {
             if(window.confirm("Deseja excluir?")) {
                 deleteProduct(id)
             }
+        }
+
+        const handleSearch = async (event) => {
+            const searchInput = event.target.value
+            setSearch(searchInput)
         }
 
         const tableData = products.map(row => {
@@ -49,6 +60,10 @@ const ProductList = () => {
                 <Link to="/products/new">
                     <button>Novo Produto</button>
                 </Link>
+                <div>
+                    <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch}></input>
+                    <button onClick={doSearch}>Pesquisar</button>
+                </div>
                 <table border="1">
                     <thead>
                         <tr>

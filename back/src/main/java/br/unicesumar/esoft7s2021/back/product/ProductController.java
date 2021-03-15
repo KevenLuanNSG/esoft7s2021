@@ -14,8 +14,8 @@ public class ProductController {
   private ProductService productService;
 
   @GetMapping
-  public List<Product> get(){
-    return productService.getAll();
+  public List<Product> get(@RequestParam(required = false) String search){
+    return productService.getAll(search);
   }
 
   @PostMapping
@@ -37,5 +37,4 @@ public class ProductController {
   public Product editProduct(@PathVariable String id, @RequestBody Product product){
     return productService.save(product);
   }
-
 }

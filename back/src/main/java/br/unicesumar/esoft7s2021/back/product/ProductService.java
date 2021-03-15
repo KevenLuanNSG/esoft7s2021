@@ -12,8 +12,11 @@ public class ProductService {
   @Autowired
   private ProductRepository productRepository;
 
-  public List<Product> getAll(){
-    return productRepository.findAll();
+  public List<Product> getAll(String search){
+    if(search == null || search.length() == 0){
+      return productRepository.findAll();
+    }
+    return productRepository.findByDescriptionSearch(search);
   }
 
   public Product getById(String id){
