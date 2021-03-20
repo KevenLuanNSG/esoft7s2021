@@ -1,6 +1,8 @@
 package br.unicesumar.esoft7s2021.back.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,6 +16,11 @@ public class ProductController {
   private ProductService productService;
 
   @GetMapping
+  public Page<Product> getWithPage(Pageable pageable, @RequestParam(required = false) String search){
+    return productService.getAllWithPage(pageable, search);
+  }
+
+  @GetMapping("/without-page")
   public List<Product> get(@RequestParam(required = false) String search){
     return productService.getAll(search);
   }
@@ -36,5 +43,10 @@ public class ProductController {
   @PutMapping("/{id}")
   public Product editProduct(@PathVariable String id, @RequestBody Product product){
     return productService.save(product);
+  }
+
+  @GetMapping("/generate/{quantity}")
+  public String genarateProducts(@PathVariable Long quantity){
+    return productService.generateProducts(quantity);
   }
 }
