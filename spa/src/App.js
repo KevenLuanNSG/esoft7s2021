@@ -14,6 +14,7 @@ import ProductList from './components/product/product-list'
 import ProductEdit from './components/product/product-edit'
 import PublishingCompanyList from './components/publishing-company/publishing-company-list'
 import PublishingCompanyEdit from './components/publishing-company/publishing-company-edit'
+import ProductMain from './components/product/product-main'
 /*
 function somar(v1, v2) {
   return v1 + v2
@@ -62,13 +63,13 @@ function App() {
             <BookEdit></BookEdit>
           </Route>
           <Route exact path="/products">
-            <ProductList></ProductList>
+            <ProductMain></ProductMain>
           </Route>
           <Route path="/products/edit/:id">
-            <ProductEdit></ProductEdit>
+            <ProductMain></ProductMain>
           </Route>
           <Route path="/products/new">
-            <ProductEdit></ProductEdit>
+            <ProductMain></ProductMain>
           </Route>
           <Route exact path="/publishing-companies">
             <PublishingCompanyList></PublishingCompanyList>
