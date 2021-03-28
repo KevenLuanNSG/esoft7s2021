@@ -3,7 +3,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Menu from '../menu/menu'
 
-const ProductList = () => {
+const ProductList = (props) => {
+        // {searchStatus, setSearchStatus} = props
         const [products, setProducts] = useState({content: [], pageable: {pageNumber: 0}, totalPages: 0})
         const [search, setSearch] = useState([])
         const [requiredPage, setRequiredPage] = useState(0)
@@ -12,6 +13,7 @@ const ProductList = () => {
         const doGetProducts = async (page = 0) => {
             const response = await axios.get(`/api/products?search=${search}&page=${page}&size=${pageSize}`)
             setProducts(response.data)
+            setRequiredPage(page)
         }
 
         useEffect(() => {
@@ -65,7 +67,7 @@ const ProductList = () => {
         }
 
         return (
-            <div><Menu></Menu><center>
+            <div><center>
                 <h2>Listagem de Produtos</h2>
                 <hr></hr>
                 <Link to="/products/new">
