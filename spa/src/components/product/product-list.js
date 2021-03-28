@@ -1,33 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import Menu from '../menu/menu'
 
 const ProductList = (props) => {
-        // {searchStatus, setSearchStatus} = props
+        const {searchStatus, setSearchStatus} = props
         const [products, setProducts] = useState({content: [], pageable: {pageNumber: 0}, totalPages: 0})
-        const [search, setSearch] = useState([])
-        const [requiredPage, setRequiredPage] = useState(0)
         const pageSize = 10
 
-        const doGetProducts = async (page = 0) => {
+        const doGetProducts = async (page = 0, search = '') => {
             const response = await axios.get(`/api/products?search=${search}&page=${page}&size=${pageSize}`)
             setProducts(response.data)
-            setRequiredPage(page)
+            setSearchStatus({...searchStatus, page: page, search: search})
         }
 
         useEffect(() => {
-            doGetProducts()
-        },[])
-
-        useEffect(() => {
-            doGetProducts(requiredPage);
-        }, [requiredPage]);
+            doGetProducts(searchStatus.page, searchStatus.search)
+        }, [searchStatus.page, searchStatus.search])
 
 
         const deleteProduct = async (id) => {
             await axios.delete(`/api/products/${id}`)
-            doGetProducts(requiredPage)
+            doGetProducts(searchStatus.page)
         }
 
         const handleDelete = (id) => {
@@ -37,8 +30,7 @@ const ProductList = (props) => {
         }
 
         const handleSearch = async (event) => {
-            const searchInput = event.target.value
-            setSearch(searchInput)
+            setSearchStatus({...searchStatus, page: 0, search: event.target.value})
         }
 
         const tableData = products.content.map(row => {
@@ -63,7 +55,7 @@ const ProductList = (props) => {
             if (page >= products.totalPages){
                 page = products.totalPages -1
             }
-            setRequiredPage(page)
+            setSearchStatus({...searchStatus, page: page})
         }
 
         return (
@@ -74,8 +66,8 @@ const ProductList = (props) => {
                     <button>Novo Produto</button>
                 </Link>
                 <div>
-                    <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch}></input>
-                    <button onClick={() => doGetProducts()}>Pesquisar</button>
+                    <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
+                    <button onClick={() => doGetProducts(0, searchStatus.search)}>Pesquisar</button>
                 </div>
                 <table border="1">
                     <thead>

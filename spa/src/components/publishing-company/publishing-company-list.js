@@ -12,7 +12,7 @@ const PublishingCompanyList = () => {
         }
 
         useEffect(() => {
-            doGetPublishingCompanies();
+            doGetPublishingCompanies()
         },[])
 
 

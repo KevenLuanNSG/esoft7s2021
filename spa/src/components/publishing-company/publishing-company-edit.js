@@ -70,5 +70,5 @@ const PublishingCompanyEdit = () => {
     )
 }
 
-export default PublishingCompanyEdit;
+export default PublishingCompanyEdit
 
