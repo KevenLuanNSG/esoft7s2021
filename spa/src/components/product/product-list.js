@@ -15,7 +15,7 @@ const ProductList = (props) => {
 
         useEffect(() => {
             doGetProducts(searchStatus.page, searchStatus.search)
-        }, [searchStatus.page, searchStatus.search])
+        }, [])
 
 
         const deleteProduct = async (id) => {
