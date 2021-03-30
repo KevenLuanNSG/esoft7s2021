@@ -22,9 +22,7 @@ function App() {
           <Route exact path="/books" component={BookList}></Route>
           <Route path="/books/edit/:id" component={BookEdit}></Route>
           <Route path="/books/new" component={BookEdit}></Route>
-          <Route exact path="/products" component={ProductMain}></Route>
-          <Route path="/products/edit/:id" component={ProductMain}></Route>
-          <Route path="/products/new" component={ProductMain}></Route>
+          <Route path="/products" component={ProductMain}></Route>
           <Route exact path="/publishing-companies" component={PublishingCompanyList}></Route>
           <Route path="/publishing-companies/edit/:id" component={PublishingCompanyEdit}></Route>
           <Route path="/publishing-companies/new" component={PublishingCompanyEdit}></Route>
