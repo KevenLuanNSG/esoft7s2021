@@ -20,7 +20,13 @@ const ProductList = (props) => {
 
         const deleteProduct = async (id) => {
             await axios.delete(`/api/products/${id}`)
-            doGetProducts(searchStatus.page)
+            if(products.content.length === 1 && products.totalElements > pageSize) {
+                doGetProducts(searchStatus.page - 1, searchStatus.search)
+            } else if (products.content.length === 1 && products.totalElements === 1) {
+                doGetProducts(0, '')
+            } else {
+                doGetProducts(searchStatus.page, searchStatus.search)
+            }
         }
 
         const handleDelete = (id) => {
@@ -56,6 +62,7 @@ const ProductList = (props) => {
                 page = products.totalPages -1
             }
             setSearchStatus({...searchStatus, page: page})
+            doGetProducts(page, searchStatus.search)
         }
 
         return (
