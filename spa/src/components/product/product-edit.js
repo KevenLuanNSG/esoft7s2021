@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 
 
 const ProductEdit = () => {
@@ -61,7 +62,7 @@ const ProductEdit = () => {
                 <div>Preço Unitário:
                     <input type="number" name="unitPrice" onChange={handleChange} value={product.unitPrice}></input>
                 </div>
-                <button>Salvar</button>
+                <Button variant="success" style={{marginTop: '5px'}} onClick={handleSubmit}>Salvar</Button>
             </form>
             <Link to="/products">
                 <a>Voltar</a>

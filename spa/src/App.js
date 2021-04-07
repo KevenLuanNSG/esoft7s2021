@@ -1,4 +1,5 @@
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ColorEdit from './components/color/color-edit'
 import ColorList from './components/color/color-list'
 import BookEdit from './components/book/book-edit'
