@@ -62,7 +62,7 @@ const ProductEdit = () => {
                 <div>Preço Unitário:
                     <input type="number" name="unitPrice" onChange={handleChange} value={product.unitPrice}></input>
                 </div>
-                <Button>Salvar</Button>
+                <Button variant="success" style={{marginTop: '5px'}} onClick={handleSubmit}>Salvar</Button>
             </form>
             <Link to="/products">
                 <a>Voltar</a>

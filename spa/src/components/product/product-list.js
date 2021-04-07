@@ -1,108 +1,133 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { Button, Modal } from 'react-bootstrap'
 
 const ProductList = (props) => {
-        const {searchStatus, setSearchStatus} = props
-        const [products, setProducts] = useState({content: [], pageable: {pageNumber: 0}, totalPages: 0})
-        const pageSize = 10
+    const {searchStatus, setSearchStatus} = props
+    const [products, setProducts] = useState({content: [], pageable: {pageNumber: 0}, totalPages: 0})
+    const pageSize = 10
+    const [idToDelete, setIdToDelete] = useState(null)
 
-        const doGetProducts = async (page = 0, search = '') => {
-            const response = await axios.get(`/api/products?search=${search}&page=${page}&size=${pageSize}`)
-            setProducts(response.data)
-            setSearchStatus({...searchStatus, page: page, search: search})
-        }
+    const doGetProducts = async (page = 0, search = '') => {
+        const response = await axios.get(`/api/products?search=${search}&page=${page}&size=${pageSize}`)
+        setProducts(response.data)
+        setSearchStatus({...searchStatus, page: page, search: search})
+    }
 
-        useEffect(() => {
+    useEffect(() => {
+        doGetProducts(searchStatus.page, searchStatus.search)
+    }, [])
+
+
+    const deleteProduct = async (id) => {
+        await axios.delete(`/api/products/${id}`)
+        if(products.content.length === 1 && products.totalElements > pageSize) {
+            doGetProducts(searchStatus.page - 1, searchStatus.search)
+        } else if (products.content.length === 1 && products.totalElements === 1) {
+            doGetProducts(0, '')
+        } else {
             doGetProducts(searchStatus.page, searchStatus.search)
-        }, [])
-
-
-        const deleteProduct = async (id) => {
-            await axios.delete(`/api/products/${id}`)
-            if(products.content.length === 1 && products.totalElements > pageSize) {
-                doGetProducts(searchStatus.page - 1, searchStatus.search)
-            } else if (products.content.length === 1 && products.totalElements === 1) {
-                doGetProducts(0, '')
-            } else {
-                doGetProducts(searchStatus.page, searchStatus.search)
-            }
         }
+    }
 
-        const handleDelete = (id) => {
-            if(window.confirm("Deseja excluir?")) {
-                deleteProduct(id)
-            }
-        }
+    const handleDelete = (id) => {
+        setIdToDelete(id)
+    }
 
-        const handleSearch = async (event) => {
-            setSearchStatus({...searchStatus, page: 0, search: event.target.value})
-        }
+    const confirmDelete = () => {
+        deleteProduct(idToDelete)
+        setIdToDelete(null)
+    }
 
-        const tableData = products.content.map(row => {
-            return <tr key={row.id}>
-                <td>{row.id}</td>
-                <td>{row.description}</td>
-                <td>{row.launch}</td>
-                <td>{row.unitPrice}</td>
-                <td>
-                    <button onClick={(id) => handleDelete(row.id)}>Excluir</button>
-                    <Link to={`/products/edit/${row.id}`}>
-                        <button>Editar</button>
-                    </Link>  
-                </td>
-            </tr>
-        })
+    const abortDelete = () => {
+        setIdToDelete(null)
+    }
 
-        const requestPage = (page) => {
-            if(page <= 0){
-                page = 0
-            }
-            if (page >= products.totalPages){
-                page = products.totalPages -1
-            }
-            setSearchStatus({...searchStatus, page: page})
-            doGetProducts(page, searchStatus.search)
-        }
-
+    const confirmDeleteModal = () => {
         return (
-            <div><center>
-                <h2>Listagem de Produtos</h2>
-                <hr></hr>
-                <Link to="/products/new">
-                    <button>Novo Produto</button>
-                </Link>
-                <div>
-                    <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
-                    <button onClick={() => doGetProducts(0, searchStatus.search)}>Pesquisar</button>
-                </div>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <td>Id</td>
-                            <td>Descrição</td>
-                            <td>Lançamento</td>
-                            <td>Preço Unitário</td>
-                            <td>Ações</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableData}
-                    </tbody>
-                </table>
-                <div>
-                <button disabled={products.pageable.pageNumber <= 0} onClick={() => requestPage(0)}>{'<<'}</button>    
-                <button disabled={products.pageable.pageNumber <= 0} onClick={() => requestPage(products.pageable.pageNumber-1)}>{'<'}</button>
-                {products.pageable.pageNumber > 1 && <button onClick={() => requestPage(products.pageable.pageNumber-2)}>{products.pageable.pageNumber-1}</button>}
-                {products.pageable.pageNumber > 0 && <button onClick={() => requestPage(products.pageable.pageNumber-1)}>{products.pageable.pageNumber}</button>}
-                <button onClick={() => requestPage(products.pageable.pageNumber)} style={{backgroundColor: '#4477ff'}}>{products.pageable.pageNumber + 1}</button>
-                {products.pageable.pageNumber < products.totalPages - 1 && <button onClick={() => requestPage(products.pageable.pageNumber+1)}>{products.pageable.pageNumber+2}</button>}
-                {products.pageable.pageNumber < products.totalPages - 2 && <button onClick={() => requestPage(products.pageable.pageNumber+2)}>{products.pageable.pageNumber+3}</button>}
-                <button disabled={products.pageable.pageNumber >= products.totalPages - 1} onClick={() => requestPage(products.pageable.pageNumber+1)}>{'>'}</button>
-                <button disabled={products.pageable.pageNumber >= products.totalPages - 1} onClick={() => requestPage(products.totalPages - 1)}>{'>>'}</button>
-            </div>
-            </center></div>
+            <Modal show={idToDelete != null} onHide={abortDelete}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmação de exclusão</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Deseja realmente excluir o registro?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={abortDelete}>Cancelar</Button>
+                    <Button variant="primary" onClick={confirmDelete}>Excluir</Button>
+                </Modal.Footer>
+            </Modal>
         )
+    }
+
+    const handleSearch = async (event) => {
+        setSearchStatus({...searchStatus, page: 0, search: event.target.value})
+    }
+
+    const tableData = products.content.map(row => {
+        return <tr key={row.id}>
+            <td>{row.id}</td>
+            <td>{row.description}</td>
+            <td>{row.launch}</td>
+            <td>{row.unitPrice}</td>
+            <td>
+                <Button style={{marginRight: '2px'}}variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
+                <Link to={`/products/edit/${row.id}`}>
+                    <Button>Editar</Button>
+                </Link>  
+            </td>
+        </tr>
+    })
+
+    const requestPage = (page) => {
+        if(page <= 0){
+            page = 0
+        }
+        if (page >= products.totalPages){
+            page = products.totalPages -1
+        }
+        setSearchStatus({...searchStatus, page: page})
+        doGetProducts(page, searchStatus.search)
+    }
+
+    return (
+        <div><center>
+            {confirmDeleteModal()}
+            <h2>Listagem de Produtos</h2>
+            <hr></hr>
+            <Link to="/products/new">
+                <Button style={{marginBottom: '5px'}}>Novo Produto</Button>
+            </Link>
+            <div>
+                <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
+                <Button onClick={() => doGetProducts(0, searchStatus.search)}>Pesquisar</Button>
+            </div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Descrição</td>
+                        <td>Lançamento</td>
+                        <td>Preço Unitário</td>
+                        <td>Ações</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableData}
+                </tbody>
+            </table>
+            <div>
+            <Button variant="secondary" disabled={products.pageable.pageNumber <= 0} onClick={() => requestPage(0)}>{'<<'}</Button>
+            <Button variant="secondary" disabled={products.pageable.pageNumber <= 0} onClick={() => requestPage(products.pageable.pageNumber-1)}>{'<'}</Button>
+            {products.pageable.pageNumber > 1 && <Button variant="secondary" onClick={() => requestPage(products.pageable.pageNumber-2)}>{products.pageable.pageNumber-1}</Button>}
+            {products.pageable.pageNumber > 0 && <Button variant="secondary" onClick={() => requestPage(products.pageable.pageNumber-1)}>{products.pageable.pageNumber}</Button>}
+            <Button variant="primary" onClick={() => requestPage(products.pageable.pageNumber)}>{products.pageable.pageNumber + 1}</Button>
+            {products.pageable.pageNumber < products.totalPages - 1 && <Button variant="secondary" onClick={() => requestPage(products.pageable.pageNumber+1)}>{products.pageable.pageNumber+2}</Button>}
+            {products.pageable.pageNumber < products.totalPages - 2 && <Button variant="secondary" onClick={() => requestPage(products.pageable.pageNumber+2)}>{products.pageable.pageNumber+3}</Button>}
+            <Button variant="secondary" disabled={products.pageable.pageNumber >= products.totalPages - 1} onClick={() => requestPage(products.pageable.pageNumber+1)}>{'>'}</Button>
+            <Button variant="secondary" disabled={products.pageable.pageNumber >= products.totalPages - 1} onClick={() => requestPage(products.totalPages - 1)}>{'>>'}</Button>
+        </div>
+        </center></div>
+    )
 }
 
 export default ProductList
