@@ -1,11 +1,24 @@
 import React from 'react'
+import { Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Menu = () => {
+  const pathname = window.location.pathname.split('/')
 
   return (
     <div>
-      <ul>
+      <Navbar bg="primary" variant="dark">
+        <Nav activeKey={`/${pathname[1]}`}>
+          <Nav.Link href="/">Landing Page</Nav.Link>
+          <Nav.Link href="/colors">Cores</Nav.Link>
+          <Nav.Link href="/products">Produtos</Nav.Link>
+          <Nav.Link href="/publishing-companies">Editoras</Nav.Link>
+          <Nav.Link href="/books">Livros</Nav.Link>
+        </Nav>
+      </Navbar>
+
+      {/* Fast */}
+      {/* <ul>
           <Link to="/">
               <li>Landing Page</li>
           </Link>
@@ -21,8 +34,7 @@ const Menu = () => {
           <Link to="/publishing-companies">
               <li>Editoras</li>
           </Link>
-      </ul>
-      <hr></hr>
+      </ul> */}
     </div>
   )
 }

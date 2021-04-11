@@ -6,24 +6,23 @@ import ProductEdit from './product-edit'
 
 
 const ProductMain = () => {
-    const [searchStatus, setSearchStatus] = useState({page: 0, search: ''})
+  const [searchStatus, setSearchStatus] = useState({page: 0, search: ''})
 
-    useEffect(() => {
-      
-    }, [searchStatus])
+  useEffect(() => {
+    
+  }, [searchStatus])
 
-    return (
-        <div><Menu></Menu><center>
-          <Switch>
-            <Route exact path="/products">
-              <ProductList searchStatus={searchStatus} setSearchStatus={setSearchStatus}></ProductList>
-            </Route>
-            <Route exact path="/products/new" component={ProductEdit}></Route>
-            <Route exact path="/products/edit/:id" component={ProductEdit}></Route>
-          </Switch>
-        </center></div>
-    )
+  return (
+    <div><Menu></Menu><center>
+      <Switch>
+        <Route exact path="/products">
+          <ProductList searchStatus={searchStatus} setSearchStatus={setSearchStatus}></ProductList>
+        </Route>
+        <Route exact path="/products/new" component={ProductEdit}></Route>
+        <Route exact path="/products/edit/:id" component={ProductEdit}></Route>
+      </Switch>
+    </center></div>
+  )
 }
 
 export default ProductMain
-

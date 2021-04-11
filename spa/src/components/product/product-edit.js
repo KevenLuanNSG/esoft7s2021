@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import './product.css'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
-
+import { AsyncTypeahead } from 'react-bootstrap-typeahead'
 
 const ProductEdit = () => {
     const history = useHistory()
     const { id } = useParams()
     const [product, setProduct] = useState({description:"", launch: new Date(), unitPrice:0.00})
-    const editionMode = id !== undefined
+    const [searchedColors, setSearchedColors] = useState([])
+    const editionMode = id !== undefined 
+    const [isLoading, setIsLoading] = useState(false)
 
     const doGetProductById = async () => {
         const response = await axios.get(`/api/products/${id}`, product)
@@ -48,19 +51,42 @@ const ProductEdit = () => {
         setProduct(newProduct)
     }
 
+    const doSearchColors = async (search) => {
+        setIsLoading(true)
+        const response = await axios.get(`/api/colors?search=${search}`)
+        setSearchedColors(response.data.content)
+        setIsLoading(false)
+    }
+
+    const setColorSelected = (color) => {
+        console.log(color)
+    }
+
     return (
         <div><center>
             <h2>{editionMode ? 'Edição ' : 'Criação '}de Produto</h2>
             <hr></hr>
-            <form onSubmit={handleSubmit}>
-                <div>Descrição:
-                    <input type="text" name="description" onChange={handleChange} value={product.description}></input>
+            <form onSubmit={handleSubmit} id="form-product">
+                <div>Descrição
+                    <input id="teste" className="form-control" type="text" name="description" onChange={handleChange} value={product.description}></input>
                 </div>
-                <div>Lançamento:
-                    <input type="date" name="launch" onChange={handleChange} value={product.launch}></input>
+                <div>Lançamento
+                    <input className="form-control" type="date" name="launch" onChange={handleChange} value={product.launch}></input>
                 </div>
-                <div>Preço Unitário:
-                    <input type="number" name="unitPrice" onChange={handleChange} value={product.unitPrice}></input>
+                <div>Preço Unitário
+                    <input className="form-control" type="number" name="unitPrice" onChange={handleChange} value={product.unitPrice}></input>
+                </div>
+                <div>Cor
+                    <AsyncTypeahead
+                        id="id"
+                        filterBy={() => true}
+                        isLoading={isLoading}
+                        labelKey={(color) => `${color.name}`}
+                        onSearch={doSearchColors}
+                        options={searchedColors}
+                        onChange={setColorSelected}
+                        positionFixed={false}
+                    />
                 </div>
                 <Button variant="success" style={{marginTop: '5px'}} onClick={handleSubmit}>Salvar</Button>
             </form>
@@ -72,4 +98,3 @@ const ProductEdit = () => {
 }
 
 export default ProductEdit
-

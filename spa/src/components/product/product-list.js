@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './product.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
@@ -70,7 +71,7 @@ const ProductList = (props) => {
             <td>{row.launch}</td>
             <td>{row.unitPrice}</td>
             <td>
-                <Button style={{marginRight: '2px'}}variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
+                <Button style={{marginRight: '2px'}} variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
                 <Link to={`/products/edit/${row.id}`}>
                     <Button>Editar</Button>
                 </Link>  
@@ -101,7 +102,7 @@ const ProductList = (props) => {
                 <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
                 <Button onClick={() => doGetProducts(0, searchStatus.search)}>Pesquisar</Button>
             </div>
-            <table border="1">
+            <table border="1" id="table-product">
                 <thead>
                     <tr>
                         <td>Id</td>

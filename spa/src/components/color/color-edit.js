@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import './color.css'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
+
 
 const ColorEdit = () => {
     const history = useHistory()
@@ -9,35 +12,35 @@ const ColorEdit = () => {
     const [color, setColor] = useState({nick:"", name:""})
     const editionMode = id !== undefined
 
-    const doGetById = async () => {
+    const doGetColorById = async () => {
         const response = await axios.get(`/api/colors/${id}`, color)
         setColor(response.data)
     }
 
     useEffect(() => {
         if(editionMode){
-            doGetById()
+            doGetColorById()
         }
     }, [])
 
-    const doPost = async () => {
+    const saveColor = async () => {
         const response = await axios.post(`/api/colors`, color)
-        alert('Nova cor criada! Id=' + response.data)
+        alert('Nova cor criada! Id=' + response.data.id)
         history.push('/colors')
     }
 
-    const doPut = async () => {
+    const updateColor = async () => {
         const response = await axios.put(`/api/colors/${id}`, color)
-        alert('Cor editada! Id=' + response.data)
+        alert('Cor editada! Id=' + response.data.id)
         history.push('/colors')
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         if(editionMode){
-            doPut()
+            updateColor()
         } else {
-            doPost()
+            saveColor()
         }
     }
 
@@ -50,21 +53,20 @@ const ColorEdit = () => {
         <div><center>
             <h2>{editionMode ? 'Edição ' : 'Criação '}de Cor</h2>
             <hr></hr>
-            <form onSubmit={handleSubmit}>
-                <div>Sigla:
-                    <input type="text" name="nick" onChange={handleChange} value={color.nick}></input>
+            <form onSubmit={handleSubmit} id="form-color">
+                <div>Sigla
+                    <input className="form-control" type="text" name="nick" onChange={handleChange} value={color.nick}></input>
                 </div>
-                <div>Nome:
-                    <input type="text" name="name" onChange={handleChange} value={color.name}></input>
+                <div>Nome
+                    <input className="form-control" type="text" name="name" onChange={handleChange} value={color.name}></input>
                 </div>
-                <button>Enviar</button>
+                <Button variant="success" style={{marginTop: '5px'}} onClick={handleSubmit}>Salvar</Button>
             </form>
             <Link to="/colors">
-                    <a>Voltar</a>
+                <a>Voltar</a>
             </Link>
         </center></div>
     )
 }
 
 export default ColorEdit
-
