@@ -23,7 +23,7 @@ public class PublishingCompany {
   private String name;
   @Getter
   @Setter
-  private LocalDate fundation;
+  private LocalDate foundation;
   @Getter
   @Setter
   @Column(scale = 2)
@@ -33,10 +33,10 @@ public class PublishingCompany {
     this.id = UUID.randomUUID().toString();
   }
 
-  public PublishingCompany(String name, LocalDate fundation, BigDecimal averageBilling){
+  public PublishingCompany(String name, LocalDate foundation, BigDecimal averageBilling){
     this();
     this.name = name;
-    this.fundation = fundation;
+    this.foundation = foundation;
     this.averageBilling = averageBilling;
   }
 

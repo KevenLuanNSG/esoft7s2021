@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import './publishing-company.css'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 
 
 const PublishingCompanyEdit = () => {
@@ -51,17 +53,17 @@ const PublishingCompanyEdit = () => {
         <div><center>
             <h2>{editionMode ? 'Edição ' : 'Criação '}de Editora</h2>
             <hr></hr>
-            <form onSubmit={handleSubmit}>
-                <div>Nome:
-                    <input type="text" name="name" onChange={handleChange} value={publishingCompany.name}></input>
+            <form onSubmit={handleSubmit} id="form-publishing-company">
+                <div>Nome
+                    <input className="form-control" type="text" name="name" onChange={handleChange} value={publishingCompany.name}></input>
                 </div>
-                <div>Fundação:
-                    <input type="date" name="fundation" onChange={handleChange} value={publishingCompany.fundation}></input>
+                <div>Fundação
+                    <input className="form-control" type="date" name="fundation" onChange={handleChange} value={publishingCompany.fundation}></input>
                 </div>
-                <div>Faturamento:
-                    <input type="number" name="averageBilling" onChange={handleChange} value={publishingCompany.averageBilling}></input>
+                <div>Faturamento
+                    <input className="form-control" type="number" name="averageBilling" onChange={handleChange} value={publishingCompany.averageBilling}></input>
                 </div>
-                <button>Salvar</button>
+                <Button variant="success" style={{marginTop: '5px'}} onClick={handleSubmit}>Salvar</Button>
             </form>
             <Link to="/publishing-companies">
                 <a>Voltar</a>
@@ -71,4 +73,3 @@ const PublishingCompanyEdit = () => {
 }
 
 export default PublishingCompanyEdit
-
