@@ -9,7 +9,7 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead'
 const ProductEdit = () => {
     const history = useHistory()
     const { id } = useParams()
-    const [product, setProduct] = useState({description:"", launch: new Date(), unitPrice:0.00})
+    const [product, setProduct] = useState({description:"", launch: new Date(), unitPrice:0.00, standardColorVO: {id: "", name: ""}})
     const [searchedColors, setSearchedColors] = useState([])
     const editionMode = id !== undefined 
     const [isLoading, setIsLoading] = useState(false)
@@ -59,7 +59,8 @@ const ProductEdit = () => {
     }
 
     const setColorSelected = (color) => {
-        console.log(color)
+        const newProduct = {...product, standardColor: color[0]}
+        setProduct(newProduct)
     }
 
     return (
@@ -86,9 +87,10 @@ const ProductEdit = () => {
                         options={searchedColors}
                         onChange={setColorSelected}
                         positionFixed={false}
+                        selected={[product.standardColorVO]}
                     />
                 </div>
-                <Button variant="success" style={{marginTop: '5px'}} onClick={handleSubmit}>Salvar</Button>
+                <Button variant="success" style={{marginTop: '5px'}} type="submit">Salvar</Button>
             </form>
             <Link to="/products">
                 <a>Voltar</a>

@@ -2,6 +2,7 @@ package br.unicesumar.esoft7s2021.back.product;
 
 import br.unicesumar.esoft7s2021.back.color.Color;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +32,7 @@ public class Product {
   @Column(scale = 2)
   private BigDecimal unitPrice;
 
-  @JsonIgnore
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Getter
   @Setter
   @ManyToOne

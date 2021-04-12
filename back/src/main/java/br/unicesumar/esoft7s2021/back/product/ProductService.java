@@ -39,6 +39,9 @@ public class ProductService {
   }
 
   public Product save(Product product){
+    if(product.getStandardColor() == null){
+      throw new ProductInvalidException("Product without standard color.");
+    }
     return productRepository.save(product);
   }
 

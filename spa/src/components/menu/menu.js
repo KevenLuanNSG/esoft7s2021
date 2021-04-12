@@ -14,6 +14,7 @@ const Menu = () => {
           <Nav.Link href="/products">Produtos</Nav.Link>
           <Nav.Link href="/publishing-companies">Editoras</Nav.Link>
           <Nav.Link href="/books">Livros</Nav.Link>
+          <Nav.Link href="/exercise-typeahead">Typeahead</Nav.Link>
         </Nav>
       </Navbar>
 

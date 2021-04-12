@@ -7,6 +7,7 @@ import {Switch, BrowserRouter as Router, Route} from 'react-router-dom'
 import ColorMain from './components/color/color-main'
 import ProductMain from './components/product/product-main'
 import PublishingCompanyMain from './components/publishing-company/publishing-company-main'
+import ExerciseTypeaheadMain from './components/typeahead-exercise/typeahead-exercise-main';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/colors" component={ColorMain}></Route>
           <Route path="/products" component={ProductMain}></Route>
           <Route path="/publishing-companies" component={PublishingCompanyMain}></Route>
+          <Route path="/exercise-typeahead" component={ExerciseTypeaheadMain}></Route>
         </Switch>
       </Router>
     </div>
