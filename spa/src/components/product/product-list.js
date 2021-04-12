@@ -70,6 +70,7 @@ const ProductList = (props) => {
             <td>{row.description}</td>
             <td>{row.launch}</td>
             <td>{row.unitPrice}</td>
+            <td>{row.standardColorVO.name}</td>
             <td>
                 <Button style={{marginRight: '2px'}} variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
                 <Link to={`/products/edit/${row.id}`}>
@@ -109,6 +110,7 @@ const ProductList = (props) => {
                         <td>Descrição</td>
                         <td>Lançamento</td>
                         <td>Preço Unitário</td>
+                        <td>Cor Padrão</td>
                         <td>Ações</td>
                     </tr>
                 </thead>
