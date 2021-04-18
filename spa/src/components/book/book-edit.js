@@ -63,7 +63,7 @@ const BookEdit = () => {
                 <button>Salvar</button>
             </form>
             <Link to="/books">
-                <a>Voltar</a>
+                <p>Voltar</p>
             </Link>
         </center></div>
     )

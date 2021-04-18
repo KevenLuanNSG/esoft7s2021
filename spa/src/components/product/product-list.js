@@ -72,7 +72,7 @@ const ProductList = (props) => {
             <td>{row.unitPrice}</td>
             <td>{row.standardColorVO.name}</td>
             <td>
-                <Button style={{marginRight: '2px'}} variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
+                <Button className="button-delete" variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
                 <Link to={`/products/edit/${row.id}`}>
                     <Button>Editar</Button>
                 </Link>  
@@ -97,7 +97,7 @@ const ProductList = (props) => {
             <h2>Listagem de Produtos</h2>
             <hr></hr>
             <Link to="/products/new">
-                <Button style={{marginBottom: '5px'}}>Novo Produto</Button>
+                <Button className="button-new">Novo Produto</Button>
             </Link>
             <div>
                 <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>

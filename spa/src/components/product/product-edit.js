@@ -11,12 +11,14 @@ const ProductEdit = () => {
     const { id } = useParams()
     const [product, setProduct] = useState({description:"", launch: new Date(), unitPrice:0.00, standardColorVO: {id: "", name: ""}})
     const [searchedColors, setSearchedColors] = useState([])
+    const [color, setColor] = useState([])
     const editionMode = id !== undefined 
     const [isLoading, setIsLoading] = useState(false)
 
     const doGetProductById = async () => {
         const response = await axios.get(`/api/products/${id}`, product)
         setProduct(response.data)
+        setColor([response.data.standardColorVO])
     }
 
     useEffect(() => {
@@ -59,8 +61,15 @@ const ProductEdit = () => {
     }
 
     const setColorSelected = (color) => {
-        const newProduct = {...product, standardColor: color[0]}
-        setProduct(newProduct)
+        setColor(color)
+        if(color.length > 0) {
+            const newProduct = {...product, 
+                standardColor: color[0],
+                standardColorVO: {id: color[0].id, name: color[0].name},
+                standardColorId: color[0].id,
+                standardColorName: color[0].name}
+            setProduct(newProduct)
+        }
     }
 
     return (
@@ -87,13 +96,13 @@ const ProductEdit = () => {
                         options={searchedColors}
                         onChange={setColorSelected}
                         positionFixed={false}
-                        selected={[product.standardColorVO]}
+                        selected={color}
                     />
                 </div>
-                <Button variant="success" style={{marginTop: '5px'}} type="submit">Salvar</Button>
+                <Button variant="success" className="button-save" type="submit">Salvar</Button>
             </form>
             <Link to="/products">
-                <a>Voltar</a>
+                <p>Voltar</p>
             </Link>
         </center></div>
     )

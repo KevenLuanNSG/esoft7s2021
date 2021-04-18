@@ -63,10 +63,10 @@ const PublishingCompanyEdit = () => {
                 <div>Faturamento
                     <input className="form-control" type="number" name="averageBilling" onChange={handleChange} value={publishingCompany.averageBilling}></input>
                 </div>
-                <Button variant="success" style={{marginTop: '5px'}} type="submit">Salvar</Button>
+                <Button variant="success" className="button-save" type="submit">Salvar</Button>
             </form>
             <Link to="/publishing-companies">
-                <a>Voltar</a>
+                <p>Voltar</p>
             </Link>
         </center></div>
     )

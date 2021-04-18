@@ -70,7 +70,7 @@ const ColorList = (props) => {
             <td>{row.nick}</td>
             <td>{row.name}</td>
             <td>
-                <Button style={{marginRight: '2px'}} variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
+                <Button className="button-delete" variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
                 <Link to={`/colors/edit/${row.id}`}>
                     <Button>Editar</Button>
                 </Link>  
@@ -95,7 +95,7 @@ const ColorList = (props) => {
             <h2>Listagem de Cores</h2>
             <hr></hr>
             <Link to="/colors/new">
-                <Button style={{marginBottom: '5px'}}>Nova Cor</Button>
+                <Button className="button-new">Nova Cor</Button>
             </Link>
             <div>
                 <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>

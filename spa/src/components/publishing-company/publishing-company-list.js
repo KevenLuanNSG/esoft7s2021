@@ -71,7 +71,7 @@ const PublishingCompanyList = (props) => {
             <td>{row.fundation}</td>
             <td>{row.averageBilling}</td>
             <td>
-                <Button style={{marginRight: '2px'}} variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
+                <Button className="button-delete" variant="secondary" onClick={(id) => handleDelete(row.id)}>Excluir</Button>
                 <Link to={`/publishing-companies/edit/${row.id}`}>
                     <Button>Editar</Button>
                 </Link>  
@@ -96,7 +96,7 @@ const PublishingCompanyList = (props) => {
             <h2>Listagem de Editoras</h2>
             <hr></hr>
             <Link to="/publishing-companies/new">
-                <Button style={{marginBottom: '5px'}}>Nova Editora</Button>
+                <Button className="button-new">Nova Editora</Button>
             </Link>
             <div>
                 <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
