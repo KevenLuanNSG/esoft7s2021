@@ -5,3 +5,15 @@
 #table-product {
   margin: 5px 0px 5px 0px;
 }
+
+.button-save {
+  margin-top: 5px;
+}
+
+.button-new {
+  margin-bottom: 5px;
+}
+
+.button-delete {
+  margin-right: 2px;
+}

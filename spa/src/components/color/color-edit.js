@@ -60,10 +60,10 @@ const ColorEdit = () => {
                 <div>Nome
                     <input className="form-control" type="text" name="name" onChange={handleChange} value={color.name}></input>
                 </div>
-                <Button variant="success" style={{marginTop: '5px'}} type="submit">Salvar</Button>
+                <Button variant="success" className="button-save" type="submit">Salvar</Button>
             </form>
             <Link to="/colors">
-                <a>Voltar</a>
+                <p>Voltar</p>
             </Link>
         </center></div>
     )
