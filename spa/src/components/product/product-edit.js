@@ -91,7 +91,7 @@ const ProductEdit = () => {
                         id="id"
                         filterBy={() => true}
                         isLoading={isLoading}
-                        labelKey={(color) => `${color.name}`}
+                        labelKey={(color) => `${color.name ? color.name : ''}`}
                         onSearch={doSearchColors}
                         options={searchedColors}
                         onChange={setColorSelected}
