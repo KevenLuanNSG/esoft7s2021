@@ -7,7 +7,8 @@ import {Switch, BrowserRouter as Router, Route} from 'react-router-dom'
 import ColorMain from './components/color/color-main'
 import ProductMain from './components/product/product-main'
 import PublishingCompanyMain from './components/publishing-company/publishing-company-main'
-import ExerciseTypeaheadMain from './components/typeahead-exercise/typeahead-exercise-main';
+import ExerciseTypeaheadMain from './components/typeahead-exercise/typeahead-exercise-main'
+import TestOnChangeOnBlur from './components/test-onchange-onblur'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/exercise-typeahead" component={ExerciseTypeaheadMain}></Route>
         </Switch>
       </Router>
+      {/* <TestOnChangeOnBlur></TestOnChangeOnBlur> */}
     </div>
   )
 }
