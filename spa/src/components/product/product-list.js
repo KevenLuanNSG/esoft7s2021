@@ -3,6 +3,7 @@ import './product.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
+import { DebounceInput } from 'react-debounce-input'
 
 const ProductList = (props) => {
     const {searchStatus, setSearchStatus} = props
@@ -18,7 +19,7 @@ const ProductList = (props) => {
 
     useEffect(() => {
         doGetProducts(searchStatus.page, searchStatus.search)
-    }, [])
+    }, [searchStatus.search])
 
 
     const deleteProduct = async (id) => {
@@ -100,7 +101,14 @@ const ProductList = (props) => {
                 <Button className="button-new">Novo Produto</Button>
             </Link>
             <div>
-                <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
+                <DebounceInput 
+                    type="text"
+                    name="search"
+                    placeholder="Termo de Pesquisa"
+                    debounceTimeout={500} 
+                    onChange={handleSearch}
+                    value={searchStatus.search}
+                />
                 <Button onClick={() => doGetProducts(0, searchStatus.search)}>Pesquisar</Button>
             </div>
             <table border="1" id="table-product">
