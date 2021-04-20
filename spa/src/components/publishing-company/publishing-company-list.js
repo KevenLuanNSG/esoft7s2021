@@ -3,6 +3,7 @@ import './publishing-company.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
+import { DebounceInput } from 'react-debounce-input'
 
 const PublishingCompanyList = (props) => {
     const {searchStatus, setSearchStatus} = props
@@ -18,7 +19,7 @@ const PublishingCompanyList = (props) => {
 
     useEffect(() => {
         doGetPublishingCompanies(searchStatus.page, searchStatus.search)
-    }, [])
+    }, [searchStatus.search])
 
 
     const deletePublishingCompany = async (id) => {
@@ -99,7 +100,14 @@ const PublishingCompanyList = (props) => {
                 <Button className="button-new">Nova Editora</Button>
             </Link>
             <div>
-                <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
+                <DebounceInput 
+                    type="text"
+                    name="search"
+                    placeholder="Termo de Pesquisa"
+                    debounceTimeout={500} 
+                    onChange={handleSearch}
+                    value={searchStatus.search}
+                />
                 <Button onClick={() => doGetPublishingCompanies(0, searchStatus.search)}>Pesquisar</Button>
             </div>
             <table border="1" id="table-publishing-company">

@@ -3,6 +3,7 @@ import './color.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
+import { DebounceInput } from 'react-debounce-input'
 
 const ColorList = (props) => {
     const {searchStatus, setSearchStatus} = props
@@ -18,7 +19,7 @@ const ColorList = (props) => {
 
     useEffect(() => {
         doGetColors(searchStatus.page, searchStatus.search)
-    }, [])
+    }, [searchStatus.search])
 
 
     const deleteColor = async (id) => {
@@ -98,7 +99,14 @@ const ColorList = (props) => {
                 <Button className="button-new">Nova Cor</Button>
             </Link>
             <div>
-                <input type="text" name="search" placeholder="Termo de pesquisa" onChange={handleSearch} value={searchStatus.search}></input>
+                <DebounceInput 
+                    type="text"
+                    name="search"
+                    placeholder="Termo de Pesquisa"
+                    debounceTimeout={500} 
+                    onChange={handleSearch}
+                    value={searchStatus.search}
+                />
                 <Button onClick={() => doGetColors(0, searchStatus.search)}>Pesquisar</Button>
             </div>
             <table border="1" id="table-color">

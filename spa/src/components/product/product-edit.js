@@ -97,6 +97,7 @@ const ProductEdit = () => {
                         onChange={setColorSelected}
                         positionFixed={false}
                         selected={color}
+                        minLength={1}
                     />
                 </div>
                 <Button variant="success" className="button-save" type="submit">Salvar</Button>
